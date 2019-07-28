@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kibana-logging-vs
+  namespace: istio-config
+spec:
+  gateways:
+  - admin-gw
+  hosts:
+  - "kibana-logging.santier.es"
+  http:
+  - route:
+    - destination:
+        host: kibana.logging-system.svc.cluster.local
+        port:
+          number: 443
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: elasticsearch-logging-vs
+  namespace: istio-config
+spec:
+  gateways:
+  - admin-gw
+  hosts:
+  - "elasticsearch-logging.santier.es"
+  http:
+  - route:
+    - destination:
+        host: elasticsearch-client.logging-system.svc.cluster.local
+        port:
+          number: 9200

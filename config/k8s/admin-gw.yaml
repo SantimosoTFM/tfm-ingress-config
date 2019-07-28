@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: admin-gw
+  namespace: istio-config
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+#  - port:
+#      number: 3080 
+#      name: http2-admin
+#      protocol: HTTP2
+#    hosts:
+#    - "*.santier.es"
+#    tls:
+#      httpsRedirect: true # if true sends 301 redirect for http requests
+  - port:
+      name: https-admin
+      number: 3443
+      protocol: HTTPS
+    hosts:
+    - "*.santier.es"
+    tls:
+      mode: SIMPLE # enables HTTPS on this port
+      credentialName: "tls-santier-es"

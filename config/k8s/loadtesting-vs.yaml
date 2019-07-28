@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: locust-loadtesting-vs
+  namespace: istio-config
+spec:
+  gateways:
+  - admin-gw
+  hosts:
+  - "locust-loadtesting.santier.es"
+  http:
+  - route:
+    - destination:
+        host: locust-master-svc.loadtesting.svc.cluster.local
+        port:
+          number: 8089
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: fortio-loadtesting-vs
+  namespace: istio-config
+spec:
+  gateways:
+  - admin-gw
+  hosts:
+  - "fortio-loadtesting.santier.es"
+  http:
+  - route:
+    - destination:
+        host: fortio.loadtesting.svc.cluster.local
+        port:
+          number: 8080

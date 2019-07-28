@@ -1,0 +1,50 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-monitoring-vs
+  namespace: istio-config
+spec:
+  gateways:
+  - admin-gw
+  hosts:
+  - "grafana-monitoring.santier.es"
+  http:
+  - route:
+    - destination:
+        host: grafana.monitoring-system.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-monitoring-vs
+  namespace: istio-config
+spec:
+  gateways:
+  - admin-gw
+  hosts:
+  - "prometheus-monitoring.santier.es"
+  http:
+  - route:
+    - destination:
+        host: prometheus-server.monitoring-system.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: alertmanager-monitoring-vs
+  namespace: istio-config
+spec:
+  gateways:
+  - admin-gw
+  hosts:
+  - "alertmanager-monitoring.santier.es"
+  http:
+  - route:
+    - destination:
+        host: prometheus-alertmanager.monitoring-system.svc.cluster.local
+        port:
+          number: 80
