@@ -1,0 +1,47 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: admin-gw
+  namespace: istio-config
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+#  - port:
+#      number: 3080 
+#      name: http2-admin
+#      protocol: HTTP2
+#    hosts:
+#    - "*.santier.es"
+#    tls:
+#      httpsRedirect: true # if true sends 301 redirect for http requests
+  - port:
+      name: https-admin
+      number: 3443
+      protocol: HTTPS
+    hosts:
+    - "*.santier.es"
+    tls:
+      mode: SIMPLE # enables HTTPS on this port
+      credentialName: "tls-santier-es"
+      minProtocolVersion: TLSV1_1
+      maxProtocolVersion: TLSV1_3
+      cipherSuites:
+      - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+      - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      
+      #- TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA #Weak but common on TLSv1.1
+      
+      #  - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+      #  - TLS_RSA_WITH_AES_128_CBC_SHA
+      #  - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+      #  - TLS_RSA_WITH_AES_256_CBC_SHA
+      #  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+      #  - TLS_RSA_WITH_AES_128_GCM_SHA256
+      #  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      #  - TLS_RSA_WITH_AES_256_GCM_SHA384
+      #  - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+      #  - TLS_RSA_WITH_AES_128_CBC_SHA
+      #  - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+      #  - TLS_RSA_WITH_AES_256_CBC_SHA

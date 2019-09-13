@@ -1,0 +1,32 @@
+#apiVersion: networking.istio.io/v1alpha3
+#kind: Gateway
+#metadata:
+#  name: apps-gw
+#  namespace: istio-config
+#spec:
+#  selector:
+#    istio: ingressgateway
+#  servers:
+#  - port:
+#      number: 80 
+#      name: http2-apps
+#      protocol: HTTP2
+#    hosts:
+#    - "*.apps.santier.es"
+#    tls:
+#      httpsRedirect: true # if true sends 301 redirect for http requests
+#  - port:
+#      name: https-apps
+#      number: 443
+#      protocol: HTTPS
+#    hosts:
+#    - "*.apps.santier.es"
+#    tls:
+#      mode: SIMPLE # enables HTTPS on this port
+#      credentialName: "tls-santier-es"
+  #- port:
+  #    number: 31400
+  #    name: tcp
+  #    protocol: TCP
+  #  hosts:
+  #  - "*.apps.santier.es"
